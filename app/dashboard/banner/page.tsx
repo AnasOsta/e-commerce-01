@@ -29,7 +29,7 @@ import Link from "next/link";
 import React from "react";
 
 async function getData() {
-  const data = await prisma.product.findMany({
+  const data = await prisma.banner.findMany({
     orderBy: {
       createdAt: "desc",
     },
@@ -38,55 +38,46 @@ async function getData() {
   return data;
 }
 
-export default async function page() {
+export default async function BannerRoute() {
   const data = await getData();
   return (
     <>
       <div className="flex items-center justify-end">
-        <Button asChild>
-          <Link href="/dashboard/products/create">
+        <Button asChild className="flex gap-x-2">
+          <Link href="/dashboard/banner/create">
             <PlusCircle className="h-3.5 w-3.5" />
-            <span>Add Product</span>
+            <span>Add Banner</span>
           </Link>
         </Button>
       </div>
+
       <Card className="mt-5">
         <CardHeader>
-          <CardTitle>Products</CardTitle>
-          <CardDescription>
-            Manage your products and view their sales perform
-          </CardDescription>
+          <CardTitle>Banners</CardTitle>
+          <CardDescription>Manage your banners</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Image</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead>Title</TableHead>
+                <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.map((product) => (
-                <TableRow key={product.id}>
+              {data.map((item) => (
+                <TableRow key={item.id}>
                   <TableCell>
                     <Image
-                      alt="Product Image"
-                      src={product.images[0]}
-                      height={64}
+                      src={item.imageString}
+                      alt={item.title}
                       width={64}
-                      className="rounded-md object-cover h-16 w-16"
+                      height={64}
+                      className="w-16 h-16 rounded-lg object-cover"
                     />
                   </TableCell>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.status}</TableCell>
-                  <TableCell>${product.price}</TableCell>
-                  <TableCell>
-                    {new Intl.DateTimeFormat("en-US").format(product.createdAt)}
-                  </TableCell>
+                  <TableCell>{item.title}</TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -100,15 +91,7 @@ export default async function page() {
                         <DropdownMenuItem asChild>
                           <Link
                             className="w-full"
-                            href={`/dashboard/products/${product.id}`}
-                          >
-                            Edit
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link
-                            className="w-full"
-                            href={`/dashboard/products/${product.id}/delete`}
+                            href={`/dashboard/banner/${item.id}/delete`}
                           >
                             Delete
                           </Link>
