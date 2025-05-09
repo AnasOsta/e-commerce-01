@@ -13,7 +13,7 @@ export default function CategorySelection() {
         </h2>
         <Link
           className="text-sm font-semibold text-primary hover:text-primary/80"
-          href="/product/all"
+          href="/products/all"
         >
           Browse all Products &rarr;
         </Link>
@@ -27,7 +27,7 @@ export default function CategorySelection() {
           />
           <div className="bg-gradient-to-b from-transparent to-black opacity-55" />
           <div className="p-6 flex items-end">
-            <Link href="/product/all">
+            <Link href="/products/all">
               <h3 className="text-white font-semibold">All Products</h3>
               <p className="mt-1 text-sm text-white">Shop Now</p>
             </Link>
@@ -42,7 +42,7 @@ export default function CategorySelection() {
           />
           <div className="bg-gradient-to-b from-transparent to-black opacity-55 sm:absolute sm:inset-0" />
           <div className="p-6 flex items-end sm:absolute sm:inset-0">
-            <Link href="/product/men">
+            <Link href="/products/men">
               <h3 className="text-white font-semibold">Products for Men</h3>
               <p className="mt-1 text-sm text-white">Shop Now</p>
             </Link>
@@ -56,7 +56,7 @@ export default function CategorySelection() {
           />
           <div className="bg-gradient-to-b from-transparent to-black opacity-55 sm:absolute sm:inset-0" />
           <div className="p-6 flex items-end sm:absolute sm:inset-0">
-            <Link href="/product/women">
+            <Link href="/products/women">
               <h3 className="text-white font-semibold">Products for Women</h3>
               <p className="mt-1 text-sm text-white">Shop Now</p>
             </Link>

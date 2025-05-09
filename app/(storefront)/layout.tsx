@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/stroefront/Navbar";
+import Footer from "../components/stroefront/Footer";
 
 export default function StorefrontLayout({
   children,
@@ -10,6 +11,7 @@ export default function StorefrontLayout({
     <>
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">{children}</main>
+      <Footer />
     </>
   );
 }

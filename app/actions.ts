@@ -5,6 +5,9 @@ import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
 import { bannerSchema, productSchema } from "./lib/zodSchemas";
 import prisma from "./lib/db";
+import { redis } from "./lib/redis";
+import { Cart } from "./lib/interfaces";
+import { revalidatePath } from "next/cache";
 
 const adminEmail = "ensusta1@gmail.com";
 
@@ -131,4 +134,70 @@ export async function deleteBanner(formData: FormData) {
   });
 
   redirect("/dashboard/banner");
+}
+
+export async function addItem(productId: string) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/");
+  }
+
+  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+
+  const selectedProduct = await prisma.product.findUnique({
+    where: {
+      id: productId,
+    },
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      images: true,
+    },
+  });
+  if (!selectedProduct) {
+    throw new Error("No product with this id");
+  }
+
+  let myCart = {} as Cart;
+
+  if (!cart || !cart.items) {
+    myCart = {
+      userId: user.id,
+      items: [
+        {
+          price: selectedProduct.price,
+          quantity: 1,
+          id: selectedProduct.id,
+          name: selectedProduct.name,
+          imageString: selectedProduct.images[0],
+        },
+      ],
+    };
+  } else {
+    let itemFound = false;
+    myCart.items = cart.items.map((item) => {
+      if (item.id === selectedProduct.id) {
+        item.quantity += 1;
+        itemFound = true;
+      }
+      return item;
+    });
+
+    if (!itemFound) {
+      myCart.items.push({
+        price: selectedProduct.price,
+        quantity: 1,
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        imageString: selectedProduct.images[0],
+      });
+    }
+  }
+
+  await redis.set(`cart-${user.id}`, myCart);
+
+  revalidatePath("/", "layout");
 }

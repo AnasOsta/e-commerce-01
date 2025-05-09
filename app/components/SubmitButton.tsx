@@ -1,6 +1,6 @@
 "use client";
 import { Button, ButtonProps } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, ShoppingBag } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 interface buttonProps extends ButtonProps {
@@ -20,6 +20,26 @@ export function SubmitButton({ text, ...props }: buttonProps) {
       ) : (
         <Button {...props} type="submit">
           {text}
+        </Button>
+      )}
+    </>
+  );
+}
+
+export function ShoppingBagButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <Button disabled size="lg" className="w-full mt-5">
+          <Loader2 className="w-5 h-5 mr-4 animate-spin" />
+          Please wait
+        </Button>
+      ) : (
+        <Button size="lg" className="w-full mt-5" type="submit">
+          <ShoppingBag className="w-5 h-5 mr-4" />
+          Add to Cart
         </Button>
       )}
     </>
