@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { CardContent } from "@/components/ui/card";
 import {
   Carousel,
+  CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
@@ -23,7 +23,7 @@ export default function ProductCart({ item }: iAppProps) {
   return (
     <div className="rounded-lg">
       <Carousel className="w-full mx-auto select-none">
-        <CardContent className="p-0">
+        <CarouselContent className="p-0">
           {item.images.map((image, index) => (
             <CarouselItem className="p-0" key={index}>
               <div className="relative h-[330px]">
@@ -36,7 +36,7 @@ export default function ProductCart({ item }: iAppProps) {
               </div>
             </CarouselItem>
           ))}
-        </CardContent>
+        </CarouselContent>
         {item.images.length > 1 && (
           <>
             <CarouselPrevious className="ml-16" />

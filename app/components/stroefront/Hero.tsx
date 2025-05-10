@@ -32,7 +32,7 @@ export default async function Hero() {
                 src={banner.imageString}
                 alt="Banner image"
                 fill
-                className="object-cover w-full h-full rounded-xl"
+                className="object-cover object-bottom w-full h-full rounded-xl"
               />
               <div
                 className="absolute top-6 left-6 bg-opacity-75 bg-black text-white p-6 
