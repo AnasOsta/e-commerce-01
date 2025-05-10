@@ -29,13 +29,17 @@ export async function createProduct(prevState: unknown, formData: FormData) {
     return submission.reply();
   }
 
+  const flattenUrls = submission.value.images.flatMap((item) =>
+    item.split(",")
+  );
+
   await prisma.product.create({
     data: {
       name: submission.value.name,
       description: submission.value.description,
       price: submission.value.price,
       status: submission.value.status,
-      images: submission.value.images,
+      images: flattenUrls,
       category: submission.value.category,
       isFeatured: submission.value.isFeatured ?? false,
     },
@@ -60,6 +64,10 @@ export async function editProduct(prevState: unknown, formData: FormData) {
     return submission.reply();
   }
 
+  const flattenUrls = submission.value.images.flatMap((item) =>
+    item.split(",")
+  );
+
   const productId = formData.get("productId") as string;
 
   await prisma.product.update({
@@ -71,7 +79,7 @@ export async function editProduct(prevState: unknown, formData: FormData) {
       description: submission.value.description,
       price: submission.value.price,
       status: submission.value.status,
-      images: submission.value.images,
+      images: flattenUrls,
       category: submission.value.category,
       isFeatured: submission.value.isFeatured ?? false,
     },
