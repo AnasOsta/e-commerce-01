@@ -2,8 +2,9 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, PartyPopper, ShoppingBagIcon, User2 } from "lucide-react";
 import prisma from "@/app/lib/db";
-
+import { unstable_noStore as noStore } from "next/cache";
 async function getData() {
+  noStore();
   const [user, products, orders] = await Promise.all([
     prisma.user.findMany({
       select: {

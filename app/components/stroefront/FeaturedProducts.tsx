@@ -1,8 +1,9 @@
 import prisma from "@/app/lib/db";
 import ProductCart, { LoadingProductCard } from "./ProductCart";
 import { Suspense } from "react";
-
+import { unstable_noStore as noStore } from "next/cache";
 async function getData() {
+  noStore();
   const data = await prisma.product.findMany({
     where: {
       status: "published",

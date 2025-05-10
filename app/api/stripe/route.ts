@@ -3,8 +3,9 @@ import { redis } from "@/app/lib/redis";
 import { stripe } from "@/app/lib/stripe";
 import { headers } from "next/headers";
 import Stripe from "stripe";
-
+import { unstable_noStore as noStore } from "next/cache";
 export async function POST(req: Request) {
+  noStore();
   const body = await req.text();
 
   const signature = (await headers()).get("Stripe-Signature") as string;

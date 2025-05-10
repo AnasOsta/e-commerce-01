@@ -27,8 +27,9 @@ import { MoreHorizontal, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import { unstable_noStore as noStore } from "next/cache";
 async function getData() {
+  noStore();
   const data = await prisma.product.findMany({
     orderBy: {
       createdAt: "desc",

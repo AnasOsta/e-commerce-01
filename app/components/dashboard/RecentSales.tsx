@@ -2,8 +2,9 @@ import prisma from "@/app/lib/db";
 import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar } from "@radix-ui/react-avatar";
-
+import { unstable_noStore as noStore } from "next/cache";
 async function getData() {
+  noStore();
   const data = await prisma.order.findMany({
     select: {
       amount: true,

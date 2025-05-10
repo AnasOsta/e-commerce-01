@@ -15,8 +15,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-
+import { unstable_noStore as noStore } from "next/cache";
 async function getData() {
+  noStore();
   const data = await prisma.order.findMany({
     select: {
       amount: true,

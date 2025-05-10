@@ -1,8 +1,9 @@
 import ProductCart from "@/app/components/stroefront/ProductCart";
 import prisma from "@/app/lib/db";
 import { notFound } from "next/navigation";
-
+import { unstable_noStore as noStore } from "next/cache";
 async function getData(productCategory: string) {
+  noStore();
   switch (productCategory) {
     case "all": {
       const data = await prisma.product.findMany({
