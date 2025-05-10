@@ -18,7 +18,7 @@ async function getData(id: string) {
 export default async function EditRoute({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const data = await getData(id);

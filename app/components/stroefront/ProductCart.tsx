@@ -6,6 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -55,6 +56,19 @@ export default function ProductCart({ item }: iAppProps) {
       <Button asChild className="w-full mt-5">
         <Link href={`/product/${item.id}`}>Learn More!</Link>
       </Button>
+    </div>
+  );
+}
+
+export function LoadingProductCard() {
+  return (
+    <div className="flex flex-col">
+      <Skeleton className="w-full h-[330px]" />
+      <div className="flex flex-col mt-2 gap-y-2">
+        <Skeleton className="w-full h-4" />
+        <Skeleton className="w-full h-6" />
+      </div>
+      <Skeleton className="w-full h-10 mt-5" />
     </div>
   );
 }

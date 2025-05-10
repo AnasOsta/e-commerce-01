@@ -99,7 +99,7 @@ async function getData(productCategory: string) {
 export default async function CategoryPage({
   params,
 }: {
-  params: { name: string };
+  params: Promise<{ name: string }>;
 }) {
   const { name } = await params;
   const { data, title } = await getData(name);

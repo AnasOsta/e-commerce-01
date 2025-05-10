@@ -14,7 +14,7 @@ import React from "react";
 export default async function deleteRoute({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   return (
